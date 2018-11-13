@@ -6,7 +6,6 @@
     <author>
         <lang name="default">LSDT, refactored Karel Wintersky</lang>
     </author>
-    <homepage>http://livestreet.ru</homepage>
     <settings>{page}admin/</settings>
     <version>1.4</version>
     <requires>

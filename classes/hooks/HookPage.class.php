@@ -21,9 +21,22 @@
  */
 class PluginPage_HookPage extends Hook
 {
+    const ConfigKey = 'page';
+    const HooksArray = [
+        'template_main_menu_item'  =>  'Menu',
+    ];
+
     public function RegisterHook()
     {
-        $this->AddHook('template_main_menu_item', 'Menu');
+        $plugin_config_key = $this::ConfigKey;
+        foreach ($this::HooksArray as $hook => $callback) {
+            $this->AddHook(
+                $hook,
+                $callback,
+                __CLASS__,
+                Config::Get("plugin.{$plugin_config_key}.hook_priority.{$hook}") ?? 1
+            );
+        }
     }
 
     public function Menu()

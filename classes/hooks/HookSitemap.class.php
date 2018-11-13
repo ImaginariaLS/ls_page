@@ -18,6 +18,10 @@
 
 class PluginPage_HookSitemap extends Hook
 {
+    const ConfigKey = 'page';
+    const HooksArray = [
+        'sitemap_index_counters'  =>  'SitemapIndex',
+    ];
 
     /**
      * Цепляем обработчики на хуки
@@ -26,7 +30,15 @@ class PluginPage_HookSitemap extends Hook
      */
     public function RegisterHook()
     {
-        $this->AddHook('sitemap_index_counters', 'SitemapIndex');
+        $plugin_config_key = $this::ConfigKey;
+        foreach ($this::HooksArray as $hook => $callback) {
+            $this->AddHook(
+                $hook,
+                $callback,
+                __CLASS__,
+                Config::Get("plugin.{$plugin_config_key}.hook_priority.{$hook}") ?? 1
+            );
+        }
     }
 
     /**
